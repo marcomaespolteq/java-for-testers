@@ -15,32 +15,11 @@ import java.lang.reflect.InvocationTargetException;
 public class TestShopScenario {
     private WebDriver driver;
 
-    private static Class<?> homePageClass;
     @Getter
-    private static Object homePage;
+    private HomePage homePage;
 
-//    @Getter
-//    private static Class<?> authenticationPage;
-
-//    @Getter
-//    private HomePage homePage;
-//
     @Getter
     private AuthenticationPage authenticationPage;
-
-    @BeforeAll
-    public static void setUpClasses() {
-        try {
-            homePageClass = Class.forName("selenium.pages.HomePage");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-//        try {
-//            authenticationPage = Class.forName("selenium.pages.AuthenticationPage");
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-    }
 
     @BeforeEach
     public void setUp() {
@@ -56,14 +35,7 @@ public class TestShopScenario {
     }
 
     private void initPages() {
-//        homePage = new HomePage(driver);
-        try {
-            Constructor<?> homePageConstructor = homePageClass.getConstructor(WebDriver.class);
-            homePage = homePageConstructor.newInstance(driver);
-        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
+        homePage = new HomePage(driver);
         authenticationPage = new AuthenticationPage(driver);
     }
 }
